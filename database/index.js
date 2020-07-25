@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = require('/database/schema')
-mongoose.connect('mongodb://localhost/routefinder', {useNewUrlParser: true,  useUnifiedTopology: true});
+const Schema = require('./schema')
+mongoose.connect('mongodb://localhost/routefinder', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // const db = mongoose.connection;
 
