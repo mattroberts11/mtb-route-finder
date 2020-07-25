@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const Schema = require('/database/schema')
 mongoose.connect('mongodb://localhost/routefinder', {useNewUrlParser: true,  useUnifiedTopology: true});
 
-const db = mongoose.connection;
+// const db = mongoose.connection;
 
 // const routeSchema = mongoose.Schema({
 //   quantity: Number,
