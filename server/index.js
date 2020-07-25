@@ -1,21 +1,18 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var items = require('../database');
+const express = require('express');
+const app = express();
+const port = 3000;
+const bp = require('body-parser');
+const db = require('../database');
 
-var app = express();
+app.use(express.static(__dirname + '/../client/dist'));
 
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(bp.json());
+app.use(bp.urlencoded({extended: true}));
 
 app.get('/routes', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
+
 });
 
 app.listen(3000, function() {
-  console.log('listening on port 3000!');
+  console.log(`App listening on port ${port} !`);
 });

@@ -1,34 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import List from './components/List.jsx';
+import App from './components/App';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      routes: []
     }
   }
 
   componentDidMount() {
-    $.ajax({
-      url: '/routes',
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
+
   }
 
   render () {
     return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
+      <h1>Find a mountain bike trail near you:</h1>
+      <App />
     </div>)
   }
 }

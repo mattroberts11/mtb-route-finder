@@ -1,31 +1,24 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/routefinder');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+mongoose.connect('mongodb://localhost/routefinder', {useNewUrlParser: true,  useUnifiedTopology: true});
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
-db.on('error', function() {
-  console.log('mongoose connection error');
-});
+// const routeSchema = mongoose.Schema({
+//   quantity: Number,
+//   description: String
+// });
 
-db.once('open', function() {
-  console.log('mongoose connected successfully');
-});
+// const Item = mongoose.model('Item', itemSchema);
 
-var routeSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
-});
+// const selectAll = function(callback) {
+//   Item.find({}, function(err, items) {
+//     if(err) {
+//       callback(err, null);
+//     } else {
+//       callback(null, items);
+//     }
+//   });
+// };
 
-var Item = mongoose.model('Item', itemSchema);
-
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
-};
-
-module.exports.selectAll = selectAll;
+// module.exports.selectAll = selectAll;
