@@ -1,14 +1,14 @@
 {
-  "name": "github-fetcher-fullstack-v2",
-  "version": "1.0.0",
-  "description": "",
+  "name": "mtb-route-finder",
+  "version": "0.0.1",
+  "description": "Simple mountain bike app to fine trails near you",
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js"
   },
-  "author": "Beth Johnson",
-  "license": "ISC",
+  "author": "Matt Johnson",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
