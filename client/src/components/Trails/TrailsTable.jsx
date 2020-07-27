@@ -20,6 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Rating from '@material-ui/lab/Rating';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -48,10 +49,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Trail Name' },
+  { id: 'name', numeric: false, disablePadding: false, label: 'Trail Name' },
   { id: 'difficulty', numeric: false, disablePadding: false, label: 'Difficulty' },
   { id: 'length', numeric: true, disablePadding: false, label: 'Length (mi)' },
-  { id: 'climbing', numeric: true, disablePadding: false, label: 'Ascent (ft)' },
+  { id: 'ascent', numeric: true, disablePadding: false, label: 'Ascent (ft)' },
+  { id: 'descent', numeric: true, disablePadding: false, label: 'Descent (ft)' },
+  { id: 'locate', numeric: true, disablePadding: false, label: 'Locate' },
   { id: 'stars', numeric: true, disablePadding: false, label: 'Stars' },
 ];
 
@@ -194,10 +197,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTable(props) {
-  console.log(
-    'Table Props: ', props,
-    'Row', rows,
-  );
+  // console.log(
+  //   'Table Props: ', props,
+  //   'Row', rows,
+  // );
   const { trailData } = props;
   const rows = trailData.trails;
   const classes = useStyles();
@@ -306,16 +309,22 @@ export default function EnhancedTable(props) {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.difficulty}</TableCell>
+                      <TableCell align="center">{row.difficulty}</TableCell>
                       <TableCell align="right">{row.length}</TableCell>
                       <TableCell align="right">{row.ascent}</TableCell>
-                      <TableCell align="right">{row.stars}</TableCell>
+                      <TableCell align="right">{row.descent}</TableCell>
+                      <TableCell align="right">
+                        {row.longitude}
+                        &nbsp;
+                        {row.latitude}
+                      </TableCell>
+                      <TableCell align="right"><Rating name="stars" value={row.stars} precision={0.1} size="small" readOnly /></TableCell>
                     </TableRow>
                   );
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={7} />
                 </TableRow>
               )}
             </TableBody>
