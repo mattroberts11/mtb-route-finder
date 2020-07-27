@@ -5,8 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import MenuAppBar from '../MenuAppBar';
+import Box from '@material-ui/core/Box';
 import Trails from '../Trails';
 import TrailsTable from '../Trails/TrailsTable';
+import SimpleTable from '../Trails/SimpleTable';
 import theme from '../../theme';
 import exampleData from '../../../../example-data/route.json';
 
@@ -48,13 +50,8 @@ class App extends Component {
           <Typography variant="h4" gutterBottom>Welcome to Mountain Bike Trail Finder</Typography>
           <Typography variant="body1" gutterBottom>Click the button below to find trails near you.</Typography>
           <Button fullWidth color="primary" variant="outlined">Find Trails Near Me</Button>
-          { trailData.trails.map((trail, i) => (
-            <Trails
-              trail={trail}
-              key={i}
-            />
-          ))}
-          <TrailsTable trails={trailData} />
+          <Box m={10} />
+          <TrailsTable trailData={trailData} />
         </Container>
       </ThemeProvider>
     );
