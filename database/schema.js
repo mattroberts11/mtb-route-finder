@@ -25,6 +25,6 @@ const TrailSchema = new Schema({
   conditionStatus: String,
   conditionDetails: String,
   conditionDate: String,
-})
+});
 
 module.exports = TrailSchema;
