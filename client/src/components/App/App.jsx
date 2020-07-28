@@ -4,8 +4,11 @@ import regeneratorRuntime from 'regenerator-runtime';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import MenuAppBar from '../MenuAppBar';
 import Box from '@material-ui/core/Box';
+import MenuAppBar from '../MenuAppBar';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import qs from 'qs';
+import axios from 'axios';
 import Trails from '../Trails';
 import TrailsTable from '../Trails/TrailsTable';
 import SimpleTable from '../Trails/SimpleTable';
@@ -17,41 +20,43 @@ class App extends Component {
     super(props);
 
     this.state = {
-      buttonDisabled: false,
-      isFetching: false,
-      trailData: exampleData,
+      // trailData: exampleData,
+      trailData: {},
+      isLoading: true,
     };
-    this.fetchTrails = this.fetchTrails.bind(this);
+    // this.fetchTrails = this.fetchTrails.bind(this);
   }
 
   componentDidMount() {
-    // this.fetchTrails();
-  }
-
-  async fetchTrails() {
-    try {
-      this.setState({ isFetching: true });
-      const response = await fetch('http://localhost:3000/trails');
-      console.log('Response:', response);
-      const trails = await response.json();
-      // console.log('Trails data: ', trails);
-      this.setState({ trailData: trails });
-    } catch (err) {
-      console.log('There was an error fetching data', err);
-    }
+    const apiURL = 'https://www.mtbproject.com/data/get-trails';
+    const dataLat = '40.0274';
+    const dataLon = '-105.2519';
+    const dataMaxDist = '10';
+    const dataKey = '200850665-a11fa80ae28dc7f1040554791c93730c';
+    axios.get(`https://www.mtbproject.com/data/get-trails?lat=${dataLat}&lon=${dataLon}&maxDistance=${dataMaxDist}&key=${dataKey}`)
+      .then((res) => {
+        console.log('res.data componentDidMount', res.data);
+        this.setState({ trailData: res.data, isLoading: false });
+      })
+      .catch((err) => (console.log('Could not fetch data', err)));
+    // console.log('here in componentDidMount');
   }
 
   render() {
-    const { trailData } = this.state;
+    const { trailData, isLoading } = this.state;
+    console.log('Trails render state data: ', trailData);
     return (
       <ThemeProvider theme={theme}>
         <Container>
           <MenuAppBar />
           <Typography variant="h4" gutterBottom>Welcome to Mountain Bike Trail Finder</Typography>
           <Typography variant="body1" gutterBottom>Click the button below to find trails near you.</Typography>
+          <Box m={10} />
           <Button fullWidth color="primary" variant="outlined">Find Trails Near Me</Button>
           <Box m={10} />
-          <TrailsTable trailData={trailData} />
+          { !isLoading ? (
+            <TrailsTable trailData={trailData} />
+          ) : (<CircularProgress />)}
         </Container>
       </ThemeProvider>
     );
@@ -59,3 +64,5 @@ class App extends Component {
 }
 
 export default App;
+
+//  { isFetching ? <span>Loading...</span> : <TrailsTable trailData={trailData} />}
