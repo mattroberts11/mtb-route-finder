@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import MenuAppBar from '../MenuAppBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import qs from 'qs';
 import axios from 'axios';
 import Trails from '../Trails';
@@ -31,20 +32,22 @@ class App extends Component {
     const apiURL = 'https://www.mtbproject.com/data/get-trails';
     const dataLat = '40.0274';
     const dataLon = '-105.2519';
-    const dataMaxDist = '10';
+    const dataMaxDist = '50';
+    const dataMaxRes = '25';
+    const datMinLength = '';
+    const dataMinStars = '';
     const dataKey = '200850665-a11fa80ae28dc7f1040554791c93730c';
-    axios.get(`https://www.mtbproject.com/data/get-trails?lat=${dataLat}&lon=${dataLon}&maxDistance=${dataMaxDist}&key=${dataKey}`)
+    axios.get(`https://www.mtbproject.com/data/get-trails?lat=${dataLat}&lon=${dataLon}&maxDistance=${dataMaxDist}&maxResults=${dataMaxRes}&key=${dataKey}`)
       .then((res) => {
-        console.log('res.data componentDidMount', res.data);
+        // console.log('res.data componentDidMount', res.data);
         this.setState({ trailData: res.data, isLoading: false });
       })
       .catch((err) => (console.log('Could not fetch data', err)));
-    // console.log('here in componentDidMount');
   }
 
   render() {
     const { trailData, isLoading } = this.state;
-    console.log('Trails render state data: ', trailData);
+
     return (
       <ThemeProvider theme={theme}>
         <Container>
@@ -56,7 +59,7 @@ class App extends Component {
           <Box m={10} />
           { !isLoading ? (
             <TrailsTable trailData={trailData} />
-          ) : (<CircularProgress />)}
+          ) : (<LinearProgress color="secondary" />)}
         </Container>
       </ThemeProvider>
     );
@@ -64,5 +67,3 @@ class App extends Component {
 }
 
 export default App;
-
-//  { isFetching ? <span>Loading...</span> : <TrailsTable trailData={trailData} />}
