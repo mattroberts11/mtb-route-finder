@@ -319,7 +319,10 @@ export default function EnhancedTable(props) {
                         &nbsp;
                         {row.latitude}
                       </TableCell>
-                      <TableCell align="right"><Rating name="stars" value={row.stars} precision={0.1} size="small" readOnly /></TableCell>
+                      <TableCell align="right">
+                        <Rating name="stars" value={row.stars} precision={0.1} size="small" readOnly />
+                        <Typography variant="caption" display="block">{row.stars}</Typography>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
