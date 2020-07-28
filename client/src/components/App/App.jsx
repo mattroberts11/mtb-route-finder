@@ -5,16 +5,18 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import MenuAppBar from '../MenuAppBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import qs from 'qs';
 import axios from 'axios';
-import Trails from '../Trails';
+// import geolocated from 'react-geolocated';
+// import { getLocationByLatLng } from "./request";
+import Geo from '../Geo';
+import MenuAppBar from '../MenuAppBar';
+// import Trails from '../Trails';
 import TrailsTable from '../Trails/TrailsTable';
-import SimpleTable from '../Trails/SimpleTable';
+// import SimpleTable from '../Trails/SimpleTable';
 import theme from '../../theme';
-import exampleData from '../../../../example-data/route.json';
+// import exampleData from '../../../../example-data/route.json';
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +28,7 @@ class App extends Component {
       isLoading: true,
     };
     // this.fetchTrails = this.fetchTrails.bind(this);
+    // this.getGeoLocation = this.getGeoLocation.bind(this);
   }
 
   componentDidMount() {
@@ -54,9 +57,11 @@ class App extends Component {
           <MenuAppBar />
           <Typography variant="h4" gutterBottom>Welcome to Mountain Bike Trail Finder</Typography>
           <Typography variant="body1" gutterBottom>Click the button below to find trails near you.</Typography>
-          <Box m={10} />
+          <Box m={5} />
+          <Geo />
+          <Box m={5} />
           <Button fullWidth color="primary" variant="outlined">Find Trails Near Me</Button>
-          <Box m={10} />
+          <Box m={5} />
           { !isLoading ? (
             <TrailsTable trailData={trailData} />
           ) : (<LinearProgress color="secondary" />)}
