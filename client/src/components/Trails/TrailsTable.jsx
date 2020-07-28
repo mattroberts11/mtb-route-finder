@@ -18,11 +18,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import InfoIcon from '@material-ui/icons/Info';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Rating from '@material-ui/lab/Rating';
-import axios from 'axios';
+// import axios from 'axios';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -307,11 +308,17 @@ export default function EnhancedTable(props) {
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
-                          id={toString(row.id)}
+                          id={row.id}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.name}
+                        &nbsp;
+                        <Tooltip title={row.summary} placement="right">
+                          <IconButton aria-label="info">
+                            <InfoIcon color="primary" fontSize="small" style={{ opacity: 0.5 }} />
+                          </IconButton>
+                        </Tooltip>
                       </TableCell>
                       <TableCell align="center">{row.difficulty}</TableCell>
                       <TableCell align="right">{row.length}</TableCell>
