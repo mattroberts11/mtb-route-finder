@@ -28,6 +28,7 @@ class App extends Component {
       showLoc: false,
       lat: 0,
       lon: 0,
+      addToFav: []
     };
     this.getTrails = this.getTrails.bind(this);
     this.getLocationOnClick = this.getLocationOnClick.bind(this);

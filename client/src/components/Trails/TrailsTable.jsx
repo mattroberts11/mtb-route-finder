@@ -134,9 +134,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
+const handleAddFavoritesClick = (event, selected) => {
+  console.log(selected);
+};
+
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, selected } = props;
 
   return (
     <Toolbar
@@ -157,7 +161,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Add to Favorites">
-          <IconButton aria-label="favorite">
+          <IconButton aria-label="favorite" onClick={handleAddFavoritesClick(event, selected)}>
             <FavoriteIcon />
           </IconButton>
         </Tooltip>
@@ -205,8 +209,8 @@ export default function EnhancedTable(props) {
   //   'Table Props: ', props,
   //   'Row', rows,
   // );
-  const { trailData } = props;
-  const rows = trailData.trails;
+  const { trailData } = props; // added
+  const rows = trailData.trails; // added
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -270,7 +274,7 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -308,7 +312,7 @@ export default function EnhancedTable(props) {
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
-                          id={row.id}
+                          id={row.name}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
