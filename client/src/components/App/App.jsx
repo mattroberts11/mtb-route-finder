@@ -14,7 +14,8 @@ import Geo from '../Geo';
 import MenuAppBar from '../MenuAppBar';
 import TrailsTable from '../Trails/TrailsTable';
 import theme from '../../theme';
-import exampleData from '../../../../example-data/route.json';
+import exampleData from '../../../../example-data/routes500.json';
+import bp from 'body-parser';
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class App extends Component {
       addToFav: []
     };
     this.getTrails = this.getTrails.bind(this);
+    this.saveTrailToUser = this.saveTrailToUser.bind(this);
     this.getLocationOnClick = this.getLocationOnClick.bind(this);
   }
 
@@ -85,6 +87,14 @@ class App extends Component {
       })
       .catch((err) => (console.log('Could not fetch data', err)));
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  saveTrailToUser() {
+    axios.post('/trails')
+      .then((data) => bp.json(data))
+      .then(() => res.status(201).send('Trail added to user'))
+      .catch((err) => console.error('Could not add trail', err))
+  };
 
   render() {
     const {

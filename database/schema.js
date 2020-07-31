@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const TrailSchema = new Schema({
   id: Number,
@@ -27,4 +28,11 @@ const TrailSchema = new Schema({
   conditionDate: String,
 });
 
-module.exports = TrailSchema;
+const SaveTrailSchema = new Schema({
+  name: String,
+});
+
+module.exports = {
+  TrailSchema,
+  SaveTrailSchema,
+};
