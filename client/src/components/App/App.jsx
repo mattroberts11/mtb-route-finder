@@ -1,23 +1,27 @@
-require('dotenv').config();
 import React, { Component } from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
-import regeneratorRuntime from 'regenerator-runtime';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Loader from '../Loader';
-// import LinearProgress from '@material-ui/core/LinearProgress';
+
+import bp from 'body-parser';
 import axios from 'axios';
+
+import { ThemeProvider } from '@material-ui/core/styles';
+
+import {
+  Typography,
+  Container,
+  Paper,
+  Grid,
+  Box,
+  Button,
+} from '@material-ui/core';
+
+import theme from '../../theme';
+
+import exampleData from '../../../../example-data/routes500.json';
+
+import Loader from '../Loader';
 import Geo from '../Geo';
 import MenuAppBar from '../MenuAppBar';
 import TrailsTable from '../Trails/TrailsTable';
-import theme from '../../theme';
-import exampleData from '../../../../example-data/routes500.json';
-import bp from 'body-parser';
 
 class App extends Component {
   constructor(props) {
@@ -81,7 +85,7 @@ class App extends Component {
         // this.getTrails();
       });
     } else {
-      alert('Your browser does not support geo location services.')
+      alert('Your browser does not support geo location services.');
     }
   }
 
@@ -91,13 +95,17 @@ class App extends Component {
     const dataLon = lon;
     const dataMaxDist = '50';
     const dataMaxRes = '25';
-    const datMinLength = '';
-    const dataMinStars = '';
-    const dataKey = process.env.MTB_PROJECT_API_KEY;
+    const datMinLength = ''; // for future release
+    const dataMinStars = ''; // for future release
+    const dataKey = '200850665-a11fa80ae28dc7f1040554791c93730c';
     axios.get(`https://www.mtbproject.com/data/get-trails?lat=${dataLat}&lon=${dataLon}&maxDistance=${dataMaxDist}&maxResults=${dataMaxRes}&key=${dataKey}`)
       .then((res) => {
         // console.log('res.data componentDidMount', res.data);
-        this.setState({ trailData: res.data, isLoading: false, showTrails: true });
+        this.setState({
+          trailData: res.data,
+          isLoading: false,
+          showTrails: true,
+        });
       })
       .catch((err) => (console.log('Could not fetch data', err)));
   }
@@ -108,15 +116,15 @@ class App extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   saveTrailToUser() {
-    axios.post('/trails')
+    axios.post('/api/trails/save')
       .then((data) => bp.json(data))
       .then(() => res.status(201).send('Trail added to user'))
-      .catch((err) => console.error('Could not add trail', err))
-  };
+      .catch((err) => console.error('Could not add trail', err));
+  }
 
   render() {
     const {
-      trailData, isLoading, showTrails, showLoc, lat, lon
+      trailData, isLoading, showTrails, showLoc, lat, lon,
     } = this.state;
 
     return (

@@ -19,7 +19,7 @@ const saveTrails = (trailObj) => {
   const newTrail = new SaveTrail(trailObj);
   return newTrail.save()
     .then(() => ('Trail saved successfully'))
-    .catch((err) => console.error('error adding trail to database db:idx 21', err));
+    .catch((err) => console.error('Error adding trail to database db:idx 21', err));
 };
 
 const AddTrail = mongoose.model('AddTrail', Schema.TrailSchema);
