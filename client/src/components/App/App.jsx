@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Loader from '../Loader';
 // import LinearProgress from '@material-ui/core/LinearProgress';
 import axios from 'axios';
 import Geo from '../Geo';
@@ -24,7 +25,7 @@ class App extends Component {
     this.state = {
       trailData: exampleData,
       // trailData: {},
-      isLoading: true,
+      isLoading: false,
       showTrails: false,
       showLoc: false,
       lat: 0,
@@ -33,6 +34,7 @@ class App extends Component {
     };
     this.getTrails = this.getTrails.bind(this);
     this.saveTrailToUser = this.saveTrailToUser.bind(this);
+    this.handleTrailsLoaded = this.handleTrailsLoaded.bind(this);
     this.getLocationOnClick = this.getLocationOnClick.bind(this);
   }
 
@@ -51,6 +53,11 @@ class App extends Component {
     //     this.setState({ trailData: res.data, isLoading: false });
     //   })
     //   .catch((err) => (console.log('Could not fetch data', err)));
+    // this.setState({ showTrails: true });
+  }
+
+  componentDidUpdate() {
+    this.state.isLoading = false;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -63,7 +70,13 @@ class App extends Component {
         const { longitude } = position.coords;
         const latShort = latitude.toFixed(4);
         const lonShort = longitude.toFixed(4);
-        this.setState({ lat: latitude, lon: longitude, showTrails: true, showLoc: true });
+        this.setState({
+          lat: latShort,
+          lon: lonShort,
+          showTrails: true,
+          showLoc: true,
+          isLoading: true,
+        });
         // this.getTrails();
       });
     } else {
@@ -86,6 +99,10 @@ class App extends Component {
         this.setState({ trailData: res.data, isLoading: false, showTrails: true });
       })
       .catch((err) => (console.log('Could not fetch data', err)));
+  }
+
+  handleTrailsLoaded() {
+    this.setState({ showTrails: true });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -113,7 +130,7 @@ class App extends Component {
           { showLoc ? (
             <Grid container spacing={3} m={5}>
               <Grid item xs={12}>
-                <Paper elevation={5}>
+                <Paper elevation={5} id="map1">
                   <Typography variant="body1" align="center" color="secondary">Your Location:</Typography>
                   <Typography variant="body1" align="center" color="primary">
                     Latitude:&nbsp;

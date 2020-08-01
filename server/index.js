@@ -14,9 +14,10 @@ app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
 app.post('/api/trails/save', (req, res) => {
+  console.log('Exp server req.body = ', req.body[0]);
   const trailObj = {
     // id: req.body.id,
-    name: req.body.name,
+    name: req.body[0],
   };
   db.saveTrails(trailObj)
     .then((data) => (res.status(201).send(data)))
@@ -39,7 +40,6 @@ app.post('/api/trails/add', (req, res) => {
     .then((data) => (res.status(201).send(data)))
     .catch((err) => (res.status(500).send('Error posting data server-idx:29', err)));
 });
-
 
 app.get('/trails', (req, res) => {
   console.log('Fetching data...');

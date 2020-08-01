@@ -1,31 +1,34 @@
 const mongoose = require('mongoose');
 const Schema = require('./schema');
+require('dotenv').config();
 
-mongoose.connect('mongodb+srv://mattrob:matt5477@cluster0.elyw9.mongodb.net/trail?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.MONGO_ATLAS_DB_CONN, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
   try {
-    console.log('connected to atlas');
+    console.log('Connected to MongoDB atlas.');
   } catch (error) {
-    console.log('could not connect to atlas');
+    console.log('Could not connect to atlas');
   }
 });
 
-const Trail = mongoose.model('Trail', Schema);
+const SaveTrail = mongoose.model('SaveTrail', Schema.SaveTrailSchema);
 
 const saveTrails = (trailObj) => {
   console.log(
-    'addObj= ', trailObj,
+    'trailObj= ', trailObj,
   );
-  const newTrail = new Trail.SaveTrailSchema(trailObj);
+  const newTrail = new SaveTrail(trailObj);
   return newTrail.save()
-    .then(() => ('Trail added successfully'))
+    .then(() => ('Trail saved successfully'))
     .catch((err) => console.error('error adding trail to database db:idx 21', err));
 };
+
+const AddTrail = mongoose.model('AddTrail', Schema.TrailSchema);
 
 const addTrails = (addTrailObj) => {
   console.log(
     'addObj= ', addTrailObj,
   );
-  const newTrail = new Trail.TrailSchema(addTrailObj);
+  const newTrail = new AddTrail(addTrailObj);
   return newTrail.save()
     .then(() => ('Trail added successfully'))
     .catch((err) => console.error('error adding trail to database db:idx 21', err));
