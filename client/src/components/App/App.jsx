@@ -1,3 +1,4 @@
+require('dotenv').config();
 import React, { Component } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import regeneratorRuntime from 'regenerator-runtime';
@@ -92,7 +93,7 @@ class App extends Component {
     const dataMaxRes = '25';
     const datMinLength = '';
     const dataMinStars = '';
-    const dataKey = '200850665-a11fa80ae28dc7f1040554791c93730c';
+    const dataKey = process.env.MTB_PROJECT_API_KEY;
     axios.get(`https://www.mtbproject.com/data/get-trails?lat=${dataLat}&lon=${dataLon}&maxDistance=${dataMaxDist}&maxResults=${dataMaxRes}&key=${dataKey}`)
       .then((res) => {
         // console.log('res.data componentDidMount', res.data);
