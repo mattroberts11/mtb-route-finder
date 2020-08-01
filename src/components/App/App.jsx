@@ -16,7 +16,7 @@ import {
 
 import theme from '../../theme';
 
-import exampleData from '../../../../example-data/routes500.json';
+import exampleData from '../../../example-data/routes500.json';
 
 import Loader from '../Loader';
 import Geo from '../Geo';
