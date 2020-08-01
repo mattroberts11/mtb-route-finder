@@ -4,7 +4,7 @@ const app = express();
 const port = 4000;
 const bp = require('body-parser');
 const db = require('../database');
-const data = require('../example-data/route.json');
+const exampleData = require('../example-data/route.json');
 
 require('dotenv').config();
 
@@ -20,7 +20,7 @@ app.post('/api/trails/save', (req, res) => {
     name: req.body[0],
   };
   db.saveTrails(trailObj)
-    .then((data) => (res.status(201).send(data)))
+    .then((saveData) => (res.status(201).send(saveData)))
     .catch((err) => (res.status(500).send('Error posting data server-idx:29', err)));
 });
 
@@ -43,7 +43,7 @@ app.post('/api/trails/add', (req, res) => {
 
 app.get('/trails', (req, res) => {
   console.log('Fetching data...');
-  res.send(data);
+  res.send(exampleData);
 });
 
 app.listen(port, () => {
